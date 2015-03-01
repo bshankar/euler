@@ -41,6 +41,7 @@ bool fermat(T n, T k=10, T max=1000) {
     return true;
 }
 
+
 template <class T>
 bool miller_rabin(T n, T k = 5) {
     // The miller rabin test for primality
@@ -112,6 +113,26 @@ T gcd(T a, T b) {
     if (!a) return b;
     if (!b) return a;
     if (!(a-1) || !(b-1)) return 1;
+}
+
+
+template <class T>
+void extended_euclid(T a, T b, vector<T>& v) {
+    T s = 0, t = 1, r = b;
+    T s_ = 1, t_ = 0, r_ = a;
+
+    while (r != 0) {
+        T q = r_/r;
+        T r_tmp, s_tmp, t_tmp;
+        r_tmp = r_; s_tmp = s_; t_tmp = t_;
+        r_ = r; s_ = s; t_ = t;
+        r = r_tmp - q*r; 
+        s = s_tmp - q*s; 
+        t = t_tmp - q*t;
+    }
+    v[0] = s_; v[1] = t_;  // bezout coefficients
+    v[2] = r_;  // gcd
+    v[3] = t; v[4] = s;  // 
 }
 
 
