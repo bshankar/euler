@@ -123,8 +123,7 @@ void extended_euclid(T a, T b, vector<T>& v) {
 
     while (r != 0) {
         T q = r_/r;
-        T r_tmp, s_tmp, t_tmp;
-        r_tmp = r_; s_tmp = s_; t_tmp = t_;
+        T r_tmp = r_, s_tmp = s_, t_tmp = t_;
         r_ = r; s_ = s; t_ = t;
         r = r_tmp - q*r; 
         s = s_tmp - q*s; 
@@ -133,6 +132,30 @@ void extended_euclid(T a, T b, vector<T>& v) {
     v[0] = s_; v[1] = t_;  // bezout coefficients
     v[2] = r_;  // gcd
     v[3] = t; v[4] = s;  // 
+}
+
+
+template <class T>
+T inverse(T a, T n) {
+    // calculate the multiplicative inverse
+    // in modular structures
+    T t = 1, r = a, q;
+    T t_ = 0, r_ = n;
+    T t_tmp, r_tmp;
+
+    while (r) {
+        q = r_/r;
+        r_tmp = r_; t_tmp = t_;
+        t_ = t; r_ = r;
+        t = t_tmp - q*t;
+        r = r_tmp - q*r;
+    }
+    if (r_ > 1)
+        // not invertible
+        return 0;
+    if (t_ < 0)
+        t_ += n;
+    return t_;
 }
 
 

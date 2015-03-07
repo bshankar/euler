@@ -2,20 +2,13 @@
 #include "prime.h"
 using namespace std;
 
-#define N 100
-vector<long> vec(5);
+#define N 100000000
 
-long f(long n, vector<long>& vec) {
+long f(long n) {
     // -1(wilson's theorem), 1, (n-1/2) 
-    // (calculate last 2 using
-    // extended euclids algorithm)
     long k = (n-1)/2, k_ = (n-2)*(n-3) % n;
-    extended_euclid(k_, -n, vec);
-    long ans = k + vec[0];
-    k_ = k_*(n-4) % n;
-    extended_euclid(k_, -n, vec);
-    ans += vec[0];
-    return ans % n;
+    long ans = k + inverse(k_, n);
+    return (ans + inverse(k_*(n-4), n)) % n;
 }
 
 
@@ -25,8 +18,7 @@ int main() {
     for (long i = 5; i < N; ++i) {
         if (s[i-2])
             continue;
-        ans += f(i, vec);
+        ans += f(i);
     }
     cout << ans << endl;
-    cout << f((long) 7, vec) << endl;
 }
