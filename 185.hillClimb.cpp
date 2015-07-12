@@ -2,7 +2,6 @@
 #include <fstream>
 #include <random>
 #include <string>
-#include <cmath>
 using namespace std;
 typedef unsigned char uchar;
 typedef uniform_int_distribution<unsigned long> uid;
@@ -10,12 +9,12 @@ typedef uniform_real_distribution<double> urd;
 
 #define SIZE 16
 #define CLUES 22
+#define MAX_PRESSURE 16
 
 auto const seed = random_device()();
 minstd_rand rng(seed);
-uid index(0, SIZE-1);  // location of change
-uid digit(0, 9);       // new random digit
-urd rreal(0, 1);       // random real distribution
+uid loc(0, SIZE-1);  // location of change
+uid digit(0, 9);  // new random digit
 
 struct rules {
     uchar clues[CLUES][SIZE] = {};
@@ -57,31 +56,39 @@ void init(uchar* s1) {
 }
 
 
-double P(int e1, int e2, double T) {
-    if (e1 > e2)
-        return 1.0;
-    return exp((e1 - e2)/T);
-}
-
-
-void simulatedAnneal(rules *r, int k_max) {
+void hillClimb(rules *r) {
+    // a hill climbing algorithm
+    // with random jumping to avoid
+    // when stuck in a local minima
     
     uchar s1[SIZE]; init(s1);
     int e1 = energy(s1, r);
-    int e2;
-    for (int k = 0; k < k_max; ++k) {
-        double T = double(k)/k_max;
-        int i = index(rng);
-        uchar d = digit(rng);
-        uchar old = s1[i];
-        s1[i] = d;
-        int e2 = energy(s1, r);
+    int pressure = 0, e2;
+    while (1) {
+
+        for (int i = 0; i < SIZE; ++i) {
+            // jump to a neighbour with lowest energy
+            uchar old = s1[i];
+            s1[i] = digit(rng); 
+            int e3 = energy(s1, r);
+            if (e3 <= e1) 
+                e2 = e3;
+            else 
+                s1[i] = old;
+        }
         
-        if (P(e1, e2, T) > rreal(rng))
-            e1 = e2;
-        else 
-            s1[i] = old;
+        if (e1 == e2) {
+            if ((++pressure) == MAX_PRESSURE) {
+                    pressure = 0;
+                    s1[loc(rng)] = digit(rng);
+                    e2 = energy(s1, r);
+            } 
+        } else
+            pressure = 0;
+
+        e1 = e2;
     }
+
 }
 
 
@@ -97,6 +104,6 @@ int main(int argc, const char *argv[]) {
         r->matches[i] = m;
     }
 
-    simulatedAnneal(r, 10000000);
+    hillClimb(r);
     delete r;
 }
