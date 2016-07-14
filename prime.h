@@ -169,3 +169,31 @@ T sumDigits(T n) {
     }
     return ds;
 }
+
+
+template <class T>
+T permutations(T n, T k) {
+    // permutations of n objects chosen k at a time
+    T p = 1;
+    for (T i = 0; i < k; ++i)
+        p *= n-i;
+
+    return p;
+}
+
+
+double combinations(double n, double k) {
+    // combinations of n objects chosen k at a time
+    k = min(k, n-k);
+    double c = 1;
+    for (double i = 1; i < k+1; ++i)
+        c *= (n-i+1)/i;
+    return c;
+}
+
+
+template <class T>
+T combinations(T n, T k) {
+    // combinations of n objects chosen k at a time
+    return permutations(n, k)/permutations(k, k);
+}
