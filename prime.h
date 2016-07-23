@@ -90,7 +90,7 @@ std::vector<bool> sieve(T N) {
         if (s[i])
             continue;
         T prime = i + 2;
-        for (T j = i + prime; j < N; j += prime) {
+        for (T j = prime*prime - 2; j < N; j += prime) {
             s[j] = true;  // marked composite
         }
     }
@@ -196,4 +196,17 @@ template <class T>
 T combinations(T n, T k) {
     // combinations of n objects chosen k at a time
     return permutations(n, k)/permutations(k, k);
+}
+
+
+template <class T>
+vector<T> all_divisors(T n) {
+    // list of all divisors of n
+    vector<T> divisors;
+    for (T k = 1; k < sqrt(n)+1; ++k)
+        if (n % k == 0) {
+        divisors.push_back(k);
+        divisors.push_back(n/k);
+        }
+    return divisors;
 }
