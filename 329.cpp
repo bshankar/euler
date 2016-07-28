@@ -1,56 +1,44 @@
-#include <iostream>
 #include "prime.h"
 #include <gmpxx.h>
-typedef mpq_class mpq;
+#include <algorithm>
+typedef mpq_class fr;
 using namespace std;
 
 #define TARGET "PPPPNNPPPNPPNPN"
 const vector<bool> nos = sieve(500);
-mpq total_prob = 0;
+fr probs[15][500]; // probability(index, start)
 
 bool is_prime(int n) {
-    if (n == 0 || n == 1)
-        return false;
+    if (n == 1) return false;
     return !nos[n-2];
 }
 
-mpq get_prob(int n, char croak) {
-    if ((is_prime(n) && croak == 'P') ||
-        (!is_prime(n) && croak == 'N'))
-        return mpq(2, 3);
-    return mpq(1, 3);
+fr get_prob(int n, int i) {
+    if ((is_prime(n+1) && TARGET[i] == 'P') ||
+        (!is_prime(n+1) && TARGET[i] == 'N'))
+        return fr(2, 3);
+    return fr(1, 3);
 }
-
-void jump(int start, string croaks, mpq probability) {
-    if (croaks == TARGET) {
-        total_prob += probability;
-        return;
-    }
-
-    // valid croaks so far
-    // jump left and then right 
-    char target = TARGET[croaks.size()];
-    mpq jump_prob = (start-1 && start < 500) ? mpq(1, 2) : mpq(1);
-    if (start-1)
-        jump(start-1, croaks + target, 
-                probability*jump_prob*get_prob(start-1, target));
-
-    if (start < 500)
-        jump(start+1, croaks + target, 
-                probability*jump_prob*get_prob(start+1, target));
-}
-
 
 int main() {
-    string croaks;
-    mpq tp = 0;
-    for (auto i = 1; i <= 500; ++i) {
-        // start jumping from here
-        jump(i, croaks + TARGET[0], get_prob(i, TARGET[0])); 
-        tp += total_prob;
-        total_prob = 0;
-    }
-    tp /= 500;
-    tp.canonicalize();
-    cout << tp << endl;
+    // initial values
+    for (auto s = 0; s < 500; ++s)
+        probs[0][s] = get_prob(s, 0);
+
+    for (auto i = 1; i < 15; ++i)
+        for (auto s = 0; s < 500; ++s) {
+            if (s) { // go left
+                fr jump_prob = (s-1) ? fr(1, 2) : 1;
+                probs[i][s] += jump_prob*get_prob(s, i)*probs[i-1][s-1];
+            }
+            if (s < 499) { // go right
+                fr jump_prob = (s+1 < 499) ? fr(1, 2) : 1;
+                probs[i][s] += jump_prob*get_prob(s, i)*probs[i-1][s+1];
+            }
+        }
+
+    fr ans = 0;
+    for (auto s = 0; s < 500; ++s)
+        ans += probs[15-1][s];
+    cout << ans/500 << endl;
 }
