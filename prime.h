@@ -10,6 +10,9 @@ typedef unsigned short us;
 typedef unsigned int ui;
 typedef unsigned long ul;
 
+// L1 cache size in bits
+#define L1_CACHE_SIZE 32678
+
 template<class T>
 T pow(T a, T b, T c) {
     // compute a^b mod c
@@ -210,3 +213,57 @@ vector<T> all_divisors(T n) {
         }
     return divisors;
 }
+
+
+template <class T>
+vector<T> segmented_sieve(T limit, 
+        T segment_size=L1_CACHE_SIZE) {
+    T sqrt_ = sqrt(limit);
+    T s = 2;
+    T n = 3;
+
+    // vector used for sieving
+    vector<char> sieve(segment_size);
+
+    // generate small primes <= sqrt
+    vector<char> is_prime(sqrt_ + 1, 1);
+    for (auto i = 2; i * i <= sqrt_; i++)
+        if (is_prime[i])
+            for (auto j = i * i; j <= sqrt_; j += i)
+                is_prime[j] = 0;
+
+    vector<T> primes, primes_;
+    vector<T> next;
+
+    if (limit >= 2)
+        primes_.push_back(2);
+
+    for (auto low = 0; low <= limit; low += segment_size) {
+        fill(sieve.begin(), sieve.end(), 1);
+
+        // current segment = interval [low, high]
+        T high = min(low + segment_size - 1, limit);
+
+        // store small primes needed to cross off multiples
+        for (; s * s <= high; s++)
+            if (is_prime[s]) {
+                primes.push_back(s);
+                next.push_back(s * s - low);
+            }
+
+        // sieve the current segment
+        for (auto i = 1; i < primes.size(); i++) {
+            T j = next[i];
+            for (auto k = primes[i] * 2; j < segment_size; j += k)
+                sieve[j] = 0;
+            next[i] = j - segment_size;
+        }
+
+        for (; n <= high; n += 2)
+            if (sieve[n - low]) 
+                // n is a prime not stored in primes
+                primes_.push_back(n);
+    }
+    return primes_;
+}
+
