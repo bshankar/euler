@@ -10,7 +10,7 @@ typedef unsigned short us;
 typedef unsigned int ui;
 typedef unsigned long ul;
 
-// L1 cache size in bits
+// L1 cache size in bytes
 #define L1_CACHE_SIZE 32678
 
 template<class T>
@@ -208,10 +208,35 @@ vector<T> all_divisors(T n) {
     vector<T> divisors;
     for (T k = 1; k < sqrt(n)+1; ++k)
         if (n % k == 0) {
-        divisors.push_back(k);
-        divisors.push_back(n/k);
+            divisors.push_back(k);
+            divisors.push_back(n/k);
         }
     return divisors;
+}
+
+
+template <class T>
+T no_of_divisors(T n, const vector<T>& primes) {
+
+    if (primes.back() < n/2) {
+        cout << "n is too large to determine all divisors" 
+             << "from the given set of primes!" << endl;
+        exit(1);
+    }
+
+    T div = 1;
+    for (auto prime: primes) {
+        if (prime > n/2)
+            break;
+
+        T n_ = n, pow = 0;
+        while (n_ % prime == 0) {
+            n_ /= prime;
+            ++pow;
+        }
+        div *= 1 + pow;
+    }
+    return div;
 }
 
 
