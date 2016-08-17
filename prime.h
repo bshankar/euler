@@ -304,3 +304,27 @@ bool is_square(ul n) {
     }
     return 0;
 }
+
+template <class T>
+vector<vector<T>> primitive_pythagorean_triples(T max_perimeter) {
+    // generate all primitve pythagorean triples that have 
+    // perimeter <= max_perimeter
+    vector<T> t = {3, 4, 5}; 
+    vector<vector<T>> ts;
+    ts.push_back(t);
+    T perimeter = t[0] + t[1] + t[2]; 
+    for (auto i = 0; i < ts.size(); ++i) {
+        t = ts[i];
+        vector<T> t1 = {-t[0] + 2*t[1] + 2*t[2], -2*t[0] + t[1] + 2*t[2], -2*t[0] + 2*t[1] + 3*t[2]}; 
+        vector<T> t2 = {t[0] + 2*t[1] + 2*t[2], 2*t[0] + t[1] + 2*t[2], 2*t[0] + 2*t[1] + 3*t[2]}; 
+        vector<T> t3 = {t[0] - 2*t[1] + 2*t[2], 2*t[0] - t[1] + 2*t[2], 2*t[0] - 2*t[1] + 3*t[2]}; 
+
+        if (t1[0] + t1[1] + t1[2] <= max_perimeter)
+            ts.push_back(t1); 
+        if (t3[0] + t3[1] + t3[2] <= max_perimeter)
+            ts.push_back(t3); 
+        if (t2[0] + t2[1] + t2[2] <= max_perimeter)
+            ts.push_back(t2);
+    }
+    return ts;
+}
