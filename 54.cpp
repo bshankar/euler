@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <set>
 #include <algorithm>
 using namespace std;
 typedef unsigned int ui;
@@ -9,26 +10,38 @@ const string spl_cards[] = {"10", "J", "Q", "K", "A"};
 
 
 ui high_card(string hands[][10], int game) {
+    // cancel cards that are same in both players
+    // determine the winner based on who has the
+    // highest value card
 }
 
 
-bool is_straight(string hands[][10], int game, int player) {
+ui n_kind(string hands[][10], int game) {
+    // determine the winner based on duplicates
+}
+
+
+ui straight(string hands[][10], int game) {
     // check if all the numbers are consequtive
     vector<char> v;
-    for (auto i = 0; i < 5; ++i) {
-        auto index = (player-1) ? i+5 : i;
-        v.push_back(hands[game][index][0]);
-    }
+    for (auto i = 0; i < 10; ++i)
+        v.push_back(hands[game][i][0]);
 
-    sort(v.begin(), v.end());
-    for (auto i = 0; i < 4; ++i)
-        if (v[i] != v[i+1]) 
-            return false;
-    return true;
+    // sort each player's hand separately
+    sort(v.begin(), v.begin()+5);
+    sort(v.begin()+5, v.end());
+    ui mask = 0b11;
+    for (auto i = 0; i < 5; ++i) {
+        if (v[i] + 1 != v[i+1]) 
+            mask &= 0x01; 
+        if (v[i+5] + 1 != v[i+6])
+            mask &= 0x10;
+    }
+    return mask;
 }
 
 
-ui is_flush(string hands[][10], int game) {
+ui flush(string hands[][10], int game) {
     ui same_suit = 0;
     // check for same suit
     for (auto i = 0; i < 9; ++i)
@@ -42,16 +55,18 @@ ui is_flush(string hands[][10], int game) {
     return 0;
 }
 
-ui is_straight_flush(string hands[][10], int game) {
-    auto flush_value = is_flush(hands, game);
-    if (flush_value == 0b10 && is_straight(hands, game, 1))
+ui straight_flush(string hands[][10], int game) {
+    auto flush_value = flush(hands, game),
+         straight_value = straight(hands, game);
+
+    if (flush_value == 0b10 && straight_value == 0b10)
         return 0b10;
-    else if (flush_value == 0b01 && is_straight(hands, game, 2))
+    else if (flush_value == 0b01 && straight_value == 0b10)
         return 0b01;
     return 0;
 }
 
-ui is_royal_flush(string hands[][10], int game) {
+ui royal_flush(string hands[][10], int game) {
     ui mask = 0;
     for (auto i = 0; i < 10; ++i)
         for (auto card: spl_cards) {

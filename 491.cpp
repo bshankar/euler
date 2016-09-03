@@ -1,42 +1,17 @@
-#include <iostream>
-#include <string>
-#include "itertools.h"
+#include "prime.h"
 using namespace std;
+typedef unsigned char uc;
 typedef unsigned long ul;
 
-// total number of combinations 18C9
-#define COMB 48620
-#define F10 3628800
+// start with 40561817703823564929
+// and try to find other primitive sets that
+// create numbers divisible by 11
 
-int sum(string n) {
-    int sum_ = 0;
-    for (int i = 0; i < n.size(); ++i)
-        sum_ += n[i] - '0';
-    return sum_;
-}
+uc pos[] = {1, 1, 2, 2, 3, 4, 4, 5, 5, 7};
+uc neg[] = {0, 0, 3, 6, 6, 7, 8, 8, 9, 9};
 
-
-int main(int argc, const char *argv[]) {
-
-    // store all numbers < 100 divisible by 11
-    bool isDivByEleven[100] = {};
-    for (int i = 11; i < 100; i += 11)
-        isDivByEleven[i] = true;
-    isDivByEleven[0] = true;
-
-    string s = "00112233445566778899";
-    vector<ul> sumCount(75); // count # of times each sum occurs
-
-    itertools<string> it(s, 10);
-    while (it.next_combination())
-        ++sumCount[sum(it.get())];
-
-    ul ans = 0;
-
-    for (int i = 0; i < 75; ++i)
-        for (int j = i+1; j < 75; ++j)
-            if (isDivByEleven[j-i])
-                ans += sumCount[i]*sumCount[j];
-
+int main() {
+    ul ans = permutations(10, 10) / 16;
+    ans *= ans;
     cout << ans << endl;
 }
