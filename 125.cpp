@@ -1,41 +1,24 @@
 #include "palindrome.h"
-#include <vector>
-#include <algorithm>
+#include <cmath>
+#include <set>
+
 using namespace std;
 typedef unsigned long ul;
-
-const ul N = 100000000;
-const ul M = 2000;
+#define N 100000000
 
 int main() {
-    vector<ul> sos;
-    ul s = 1, i = 2;
-    while (s < M * N) {
-        sos.push_back(s);
-        s += i * i;
-        ++i;
-    }
+    ul ans = 0, sqrtn = sqrt(N) + 1;
+    set<ul> answers;
 
-    ul pal = 1;
-    unsigned long ans = 0;
-    string pal_str;
-    while (pal < N) {
-        if (!binary_search(sos.begin(), sos.end(), pal))
-            for (auto i = upper_bound(sos.begin(), sos.end(), pal);
-                    i != sos.end() && *(i + 1) - *i < pal; ++i) {
-                if (binary_search(sos.begin(), i - 1, *i - pal)) {
-                    ans += pal;
-                    break;
-                }
+    for (auto a = 1; a < sqrtn; ++a)
+        for (auto k = 1; k < sqrtn; ++k) {
+            ul n = (k + 1)*a*a + k*(k + 1)*a + k*(k + 1)*(2*k + 1)/6;
+            if (n > N)
+                break;
+            if (is_palindrome(n) && answers.find(n) == answers.end()) {
+                ans += n;
+                answers.insert(n);
             }
-        else
-            ans += pal;
-
-        // go to next palindrome
-        pal_str = to_string(pal);
-        next_palindrome(pal_str);
-        pal = stoi(pal_str);
-    }
-    // exclude 1 from the answers
-    cout << ans - 1 << endl;
+        }
+    cout << ans << endl;
 }
