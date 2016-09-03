@@ -7,7 +7,7 @@ using std::string;
 
 template <class T>
 bool is_palindrome(T n) {
-    string s = to_string(n);
+    string s = std::to_string(n);
 
     ui left = 0,
        right = s.size() - 1;
