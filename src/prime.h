@@ -53,7 +53,7 @@ bool miller_rabin(T n, T k = 5) {
 
     if (!(n&1) || n == 1)
         return false;
-    
+
     srand(time(NULL));
 
     // write n-1 as 2^s*d
@@ -62,10 +62,10 @@ bool miller_rabin(T n, T k = 5) {
         d /= 2;
         ++s;
     }
-    
+
     // witness loop
     for (int i = 0; i < k; ++i) {
-        T a = rand()%(n-4) + 2; 
+        T a = rand()%(n-4) + 2;
         T x = pow(a, d, n);
         if (x == 1 || x == n-1)
             continue;
@@ -107,12 +107,12 @@ T gcd(T a, T b) {
     if (a == b)
         return a;
     while (a && a-1 && b && b-1) {
-        if (a > b) 
+        if (a > b)
             a = a % b;
         else
             b = b % a;
     }
-    
+
     if (!a) return b;
     if (!b) return a;
     if (!(a-1) || !(b-1)) return 1;
@@ -127,14 +127,18 @@ void extended_euclid(T a, T b, vector<T>& v) {
     while (r != 0) {
         T q = r_/r;
         T r_tmp = r_, s_tmp = s_, t_tmp = t_;
-        r_ = r; s_ = s; t_ = t;
-        r = r_tmp - q*r; 
-        s = s_tmp - q*s; 
+        r_ = r;
+        s_ = s;
+        t_ = t;
+        r = r_tmp - q*r;
+        s = s_tmp - q*s;
         t = t_tmp - q*t;
     }
-    v[0] = s_; v[1] = t_;  // bezout coefficients
+    v[0] = s_;
+    v[1] = t_;  // bezout coefficients
     v[2] = r_;  // gcd
-    v[3] = t; v[4] = s;  // 
+    v[3] = t;
+    v[4] = s;  //
 }
 
 
@@ -148,8 +152,10 @@ T inverse(T a, T n) {
 
     while (r) {
         q = r_/r;
-        r_tmp = r_; t_tmp = t_;
-        t_ = t; r_ = r;
+        r_tmp = r_;
+        t_tmp = t_;
+        t_ = t;
+        r_ = r;
         t = t_tmp - q*t;
         r = r_tmp - q*r;
     }
@@ -219,7 +225,7 @@ template <class T>
 T no_of_divisors(T n, const vector<T>& primes) {
 
     if (primes.back() < n/2) {
-        cout << "n is too large to determine all divisors" 
+        cout << "n is too large to determine all divisors"
              << "from the given set of primes!" << endl;
         exit(1);
     }
@@ -241,8 +247,8 @@ T no_of_divisors(T n, const vector<T>& primes) {
 
 
 template <class T>
-vector<T> segmented_sieve(T limit, 
-        T segment_size=L1_CACHE_SIZE) {
+vector<T> segmented_sieve(T limit,
+                          T segment_size=L1_CACHE_SIZE) {
     T sqrt_ = sqrt(limit);
     T s = 2;
     T n = 3;
@@ -285,7 +291,7 @@ vector<T> segmented_sieve(T limit,
         }
 
         for (; n <= high; n += 2)
-            if (sieve[n - low]) 
+            if (sieve[n - low])
                 // n is a prime not stored in primes
                 primes_.push_back(n);
     }
@@ -306,23 +312,24 @@ bool is_square(ul n) {
 }
 
 template <class T>
-vector<vector<T>> primitive_pythagorean_triples(T max_perimeter) {
-    // generate all primitve pythagorean triples that have 
+vector<vector<T>> primitive_pythagorean_triples(
+T max_perimeter) {
+    // generate all primitve pythagorean triples that have
     // perimeter <= max_perimeter
-    vector<T> t = {3, 4, 5}; 
+    vector<T> t = {3, 4, 5};
     vector<vector<T>> ts;
     ts.push_back(t);
-    T perimeter = t[0] + t[1] + t[2]; 
+    T perimeter = t[0] + t[1] + t[2];
     for (auto i = 0; i < ts.size(); ++i) {
         t = ts[i];
-        vector<T> t1 = {-t[0] + 2*t[1] + 2*t[2], -2*t[0] + t[1] + 2*t[2], -2*t[0] + 2*t[1] + 3*t[2]}; 
-        vector<T> t2 = {t[0] + 2*t[1] + 2*t[2], 2*t[0] + t[1] + 2*t[2], 2*t[0] + 2*t[1] + 3*t[2]}; 
-        vector<T> t3 = {t[0] - 2*t[1] + 2*t[2], 2*t[0] - t[1] + 2*t[2], 2*t[0] - 2*t[1] + 3*t[2]}; 
+        vector<T> t1 = {-t[0] + 2*t[1] + 2*t[2], -2*t[0] + t[1] + 2*t[2], -2*t[0] + 2*t[1] + 3*t[2]};
+        vector<T> t2 = {t[0] + 2*t[1] + 2*t[2], 2*t[0] + t[1] + 2*t[2], 2*t[0] + 2*t[1] + 3*t[2]};
+        vector<T> t3 = {t[0] - 2*t[1] + 2*t[2], 2*t[0] - t[1] + 2*t[2], 2*t[0] - 2*t[1] + 3*t[2]};
 
         if (t1[0] + t1[1] + t1[2] <= max_perimeter)
-            ts.push_back(t1); 
+            ts.push_back(t1);
         if (t3[0] + t3[1] + t3[2] <= max_perimeter)
-            ts.push_back(t3); 
+            ts.push_back(t3);
         if (t2[0] + t2[1] + t2[2] <= max_perimeter)
             ts.push_back(t2);
     }
