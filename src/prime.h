@@ -190,23 +190,17 @@ T permutations(T n, T k) {
     return p;
 }
 
-
-double combinations(double n, double k) {
-    // combinations of n objects chosen k at a time
-    k = min(k, n-k);
-    double c = 1;
-    for (double i = 1; i < k+1; ++i)
-        c *= (n-i+1)/i;
-    return c;
-}
-
-
 template <class T>
 T combinations(T n, T k) {
     // combinations of n objects chosen k at a time
-    return permutations(n, k)/permutations(k, k);
+    k = min(k, n-k);
+    T num = 1, den = 1;
+    for (T i = 1; i < k+1; ++i) {
+        num *= (n-i+1);
+        den *= i;
+    }
+    return num/den;
 }
-
 
 template <class T>
 vector<T> all_divisors(T n) {
