@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include <cmath>
 using namespace std;
 
@@ -16,25 +18,20 @@ int sumOfDivisors(int n) {
 
 int main() {
     const int N = 28123;
-    bool isAbundant[N] = {};
-    bool isSumOfAbundants[N] = {};
+    vector<int> abundants;
+    vector<bool> is_abundant_sum(N);
+    long sum_ = 0;
 
-    for (int i = 12; i < N; ++i) {
+    for (int i = 12; i < N; ++i)
         if (sumOfDivisors(i) > i)
-            isAbundant[i] = true;
-    }
+            abundants.push_back(i);
 
-    for (int i = 0; i < N; ++i) {
-        for (int j = i; j < N; ++j) {
-            if (i+j >= N) break;
-            if (isAbundant[i] && isAbundant[j])
-                isSumOfAbundants[i+j] = true;
-        }
-    }
+    for (int i = 0; i < abundants.size(); ++i)
+        for (int j = i; abundants[i] + abundants[j] < N; ++j)
+            is_abundant_sum[abundants[i] + abundants[j]] = true;
 
-    long sum_ = 0;    
-    for (int i = 0; i < N; ++i)
-        if (!isSumOfAbundants[i])
+    for (int i = 0; i < is_abundant_sum.size(); ++i)
+        if (!is_abundant_sum[i])
             sum_ += i;
 
     cout << sum_ << endl;
