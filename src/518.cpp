@@ -1,23 +1,25 @@
 #include "prime.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-#define N 1000000
 
 int main(int argc, char *argv[]) {
-    vector<bool> s = sieve(N); 
+    const ul N = 1000000;
+    vector<ul> primes = segmented_sieve(N);
     ul ans = 0;
 
-    for (auto i = 0; i < N; ++i) {
-        if (s[i]) continue;
-        for (auto j = i+1; j < N; ++j) {
-            if (s[j]) continue;
-
-            double ratio = (double) (j+3)/(i+3);
-            double last_prime = ratio*(j+3)-1;
-            if (floor(last_prime) == ceil(last_prime) && last_prime < N && !s[last_prime-2])
-                ans += i + j + 4 + last_prime;
+    #pragma omp parallel for reduction(+:ans)
+    for (auto i = 0; i < primes.size(); ++i)
+        for (auto j = i + 1; j < primes.size(); ++j) {
+            ul a = primes[i] + 1,
+               b = primes[j] + 1;
+            if (b*b % a) continue;
+            ul c = b*b/a;
+            if (c >= N)
+                break;
+            if (binary_search(primes.begin(), primes.end(), c-1))
+                ans += a + b + c - 3;
         }
-    }
-        cout << ans << endl;
+    cout << ans << endl;
 }

@@ -14,6 +14,12 @@ typedef unsigned long ul;
 #define L1_CACHE_SIZE 32678
 
 template<class T>
+T round(T a) {
+  return floor(a + 0.5);
+}
+
+
+template<class T>
 T pow(T a, T b, T c) {
     // compute a^b mod c
     T ans = 1;
