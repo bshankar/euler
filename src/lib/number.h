@@ -347,7 +347,7 @@ T max_perimeter) {
 
 template <class T>
 T APSum(T a, T d, T max) {
-  T n = (max - a)/d;
+  T n = (max - a)/d + 1;
   return n*(2*a + (n-1)*d)/2;
 }
 

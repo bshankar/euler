@@ -34,7 +34,7 @@ void printTimeElapsed(std::chrono::steady_clock::time_point begin,
       timeDiffStr = timeDiffStr.substr(0, timeDiffStr.find(".") + 2) + "s";
     }
     else if (timeDiff > 1000)
-      timeDiffStr = to_string(timeDiff) + "ms";
+      timeDiffStr = to_string(timeDiff/1000) + "ms";
     else 
       timeDiffStr = to_string(timeDiff) + "us";
 

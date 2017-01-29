@@ -12,6 +12,7 @@
 #include "time.h"
 
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <cmath>
 #include <gmpxx.h>

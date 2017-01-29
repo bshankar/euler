@@ -1,12 +1,6 @@
-#include <iostream> 
+#include "../lib/euler.h"
  
-typedef short s;
-typedef unsigned short us;
-typedef unsigned int ui;
-typedef unsigned long ul;
-using namespace std; 
- 
-int main() {
+string euler2() {
     ui i = 1, j = 2, ans = 2; // add 2 beforehand
     while (j < 4000000) {
         i = i + j;
@@ -16,6 +10,6 @@ int main() {
         if (j % 2 == 0)
             ans += j;
     }
-    cout << ans << endl;
+    return to_string(ans);
 }
 

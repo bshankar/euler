@@ -10,7 +10,7 @@ void intro() {
 
 
 void printSolution(int n) {
-  if (n < 0 or n > N - 1)
+  if (n < 0 or n > PROBLEMS - 1)
     cout << "Valid problem numbers are: 1 to 1000" << endl;
   else {
     if (solutions[n]) {
@@ -30,14 +30,15 @@ int main(int argc, char **argv) {
   auto begin = chrono::steady_clock::now();
   if (argc == 2) {
     int n = atoi(argv[1]);
-    printSolution(n);
+    printSolution(n - 1);
   } else {
-    cout << FAIL  << "Solving all problems!" << ENDC << endl;
+    cout << FAIL  << "Solving all problems!" << ENDC << endl << endl;
     
-    for (int n = 0; n < N; ++n) 
+    for (int n = 0; n < PROBLEMS; ++n) 
       if (solutions[n])
         printSolution(n);
   }
   auto end = chrono::steady_clock::now();
+  cout << endl;
   printTimeElapsed(begin, end);
 }

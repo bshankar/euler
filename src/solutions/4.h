@@ -1,15 +1,6 @@
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <algorithm>
+#include "../lib/euler.h"
 
-typedef short s;
-typedef unsigned short us;
-typedef unsigned int ui;
-typedef unsigned long ul;
-using namespace std;
-
-int main() {
+string euler4() {
     int max = 0;
     
     for (int i = 100; i < 1000; ++i){
@@ -27,5 +18,5 @@ int main() {
             }
         }
     }
-    cout << max << endl;
+    return to_string(max);
 }
