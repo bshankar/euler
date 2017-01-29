@@ -1,3 +1,5 @@
 *.h.gch*
 *.out
 bin/*
+build*
+.tup
