@@ -1,4 +1,4 @@
-CFLAGS = -pipe -std=c++1z -lgmp -lgmpxx -fopenmp
+CFLAGS = -pipe -std=c++1z
 LDFLAGS =
     
 ifdef DEBUG

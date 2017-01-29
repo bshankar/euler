@@ -1,3 +1,6 @@
+#ifndef NUMBER_H
+#define NUMBER_H
+
 #include <iostream>
 #include <vector>
 #include <time.h>
@@ -345,7 +348,7 @@ T max_perimeter) {
 template <class T>
 T APSum(T a, T d, T max) {
   T n = (max - a)/d;
-  return n*(2*a + (n-1)*d)/2
+  return n*(2*a + (n-1)*d)/2;
 }
 
 
@@ -354,3 +357,5 @@ T GPSum(T a, T r, T max) {
   T n = floor(log(max/a, r));
   return a(pow(r, n), - 1)/(r - 1);
 }
+
+#endif

@@ -1,5 +1,6 @@
 #ifndef FRACTION_H
 #define FRACTION_H
+
 #include "number.h"
 
 template<class T>

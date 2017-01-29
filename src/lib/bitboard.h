@@ -1,12 +1,8 @@
-#include <iostream>
-using namespace std;
+#ifndef BITBOARD_H
+#define BITBOARD_H
 
-template <class T>
+template<class T>
 int popcount(T x) {
-    // optimized for sparse bitboards
-    // count the number of 1s
-    // in the bitboard n
-
     int count = 0;
     while (x) {
         ++count;
@@ -14,3 +10,5 @@ int popcount(T x) {
     }
     return count;
 }
+
+#endif

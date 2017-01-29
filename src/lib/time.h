@@ -2,10 +2,13 @@
 #define TIME_H
 
 #include <chrono>
-typedef chrono::stead_clock::time_point time_t;
+#include "colors.h"
 
-void printTimeElapsed(time_t begin, time_t end) {
-  auto timeDiff = chrono::duration_cast<chrono::microseconds> (end - begin); 
+void printTimeElapsed(std::chrono::steady_clock::time_point begin,
+                      std::chrono::steady_clock::time_point end) {
+
+  auto timeDiff = std::chrono::duration_cast<chrono::microseconds>
+    (end - begin).count(); 
 
   string timeDiffStr;
 
@@ -31,11 +34,13 @@ void printTimeElapsed(time_t begin, time_t end) {
       timeDiffStr = timeDiffStr.substr(0, timeDiffStr.find(".") + 2) + "s";
     }
     else if (timeDiff > 1000)
-      timeDiffStr = to_string(timeDiff) + " ms";
+      timeDiffStr = to_string(timeDiff) + "ms";
     else 
-      timeDiffStr = to_string(timeDiff) + " us";
+      timeDiffStr = to_string(timeDiff) + "us";
 
-  cout << "Total time elapsed: " << timeDiffStr << endl;
+  cout << "Time elapsed: "
+       << BOLD << OKBLUE << timeDiffStr
+       << ENDC << endl;
 }
 
 #endif

@@ -1,44 +1,43 @@
-#include "lib/euler.h"
-
-#define N 1000
-string (*solutions[N])();
-
+#include "solutions/solution.h"
 
 void intro() {
-  cout << "Project Euler solutions by bshankar" << endl;
-  cout << "email: ebs@openmailbox.org" << endl << endl;
-
+  cout << HEADER
+       << BOLD << "Euler " << "v0.1" << endl
+       << "author: Bhavani Shankar (ebs@openmailbox.org)" << endl
+       << "================================================="
+       << ENDC << endl << endl;
 }
 
 
 void printSolution(int n) {
-  if (n < 1 or n > N)
+  if (n < 0 or n > N - 1)
     cout << "Valid problem numbers are: 1 to 1000" << endl;
   else {
     if (solutions[n]) {
-      cout << "Project Euler problem: " << n << endl;
-      cout << "Answer: " << *(solutions[n])() << endl;	
+      cout << "Problem "<< n + 1 << ": "
+           << BOLD << OKGREEN << UNDERLINE << (solutions[n])() << ENDC << endl;	
     }
     else
-      cout << "I didn't solve this problem yet!" << endl;
+      cout << FAIL << "I didn't solve this problem yet!" << ENDC << endl;
   }
 }
 
 
 int main(int argc, char **argv) {  
   intro();
-  auto begin = chrono::steady_clock::now();
-  // if (argc == 1) {
-  //   int n = atoi(argv[1]) - 1;
-  //   print(solutions[n]);
-  // } else {
-  //   cout << "Solving all problems!" << endl;
-    
-  //   for (int n = 0; n <= N; ++n) 
-  //     if (solutions[n])
-  //       print(solutions[n]);
-  // }
-  auto end = chrono::steady_clock::now();
+  initSolutions();
 
+  auto begin = chrono::steady_clock::now();
+  if (argc == 2) {
+    int n = atoi(argv[1]);
+    printSolution(n);
+  } else {
+    cout << FAIL  << "Solving all problems!" << ENDC << endl;
+    
+    for (int n = 0; n < N; ++n) 
+      if (solutions[n])
+        printSolution(n);
+  }
+  auto end = chrono::steady_clock::now();
   printTimeElapsed(begin, end);
 }
