@@ -1,3 +1,3 @@
-My solutions to project euler problems
+# Introduction
 
-using c++ and python
+My C++ solutions to project euler problems.
