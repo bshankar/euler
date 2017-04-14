@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 string euler8() {
     ifstream file("src/data/8.txt");

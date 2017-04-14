@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 string euler9() {
     for (int i = 1; i < 1000; ++i) 

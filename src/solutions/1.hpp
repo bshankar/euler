@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 string euler1() {
   return to_string(APSum(0, 3, 999)

@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
  
 string euler2() {
     ui i = 1, j = 2, ans = 2; // add 2 beforehand

@@ -2,22 +2,24 @@
 #define SOLUTION_H
 
 // include the library
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 #define PROBLEMS 1000
 string (*solutions[PROBLEMS])();
 
 // solved problems
-#include "1.h"  
-#include "2.h"
-#include "3.h"
-#include "4.h"
-#include "5.h"
-#include "6.h"
-#include "7.h"
-#include "8.h"
-#include "9.h"
-#include "10.h"
+#include "1.hpp"  
+#include "2.hpp"
+#include "3.hpp"
+#include "4.hpp"
+#include "5.hpp"
+#include "6.hpp"
+#include "7.hpp"
+#include "8.hpp"
+#include "9.hpp"
+#include "10.hpp"
+#include "129.hpp"
+#include "131.hpp"
 
 void initSolutions() {
   solutions[0] = euler1;
@@ -30,6 +32,8 @@ void initSolutions() {
   solutions[7] = euler8;
   solutions[8] = euler9;
   solutions[9] = euler10;
+  solutions[128] = euler129;
+  solutions[130] = euler131;
 }
 
 #endif

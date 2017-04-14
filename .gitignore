@@ -1,4 +1,4 @@
-*.h.gch*
+*gch*
 *.out
 *.o
 bin/*

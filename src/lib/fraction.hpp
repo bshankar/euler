@@ -1,7 +1,7 @@
 #ifndef FRACTION_H
 #define FRACTION_H
 
-#include "number.h"
+#include "number.hpp"
 
 template<class T>
 class Fraction {

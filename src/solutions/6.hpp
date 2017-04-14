@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 string euler6() {
     // use formula for squaresOfSum

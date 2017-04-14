@@ -1,15 +1,16 @@
 #ifndef EULER_H
 #define EULER_H
 
-#include "bitboard.h"
-#include "itertools.h"
-#include "fraction.h"
-#include "approx.h"
-#include "palindrome.h"
-#include "number.h"
-#include "vector_utils.h"
-#include "colors.h"
-#include "time.h"
+#include "bitboard.hpp"
+#include "itertools.hpp"
+#include "fraction.hpp"
+#include "approx.hpp"
+#include "palindrome.hpp"
+#include "number.hpp"
+#include "vector_utils.hpp"
+#include "colors.hpp"
+#include "time.hpp"
+#include "file.hpp"
 
 #include <iostream>
 #include <fstream>

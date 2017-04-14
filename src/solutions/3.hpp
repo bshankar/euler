@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 string euler3() {
     ul N = 600851475143;

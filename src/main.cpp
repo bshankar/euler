@@ -1,4 +1,4 @@
-#include "solutions/solution.h"
+#include "solutions/solution.hpp"
 
 void intro() {
   cout << HEADER
