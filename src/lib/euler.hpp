@@ -15,6 +15,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <regex>
 #include <cmath>
 #include <gmpxx.h>
 

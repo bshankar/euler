@@ -1,15 +1,6 @@
-CFLAGS = -pipe -std=c++1z
-LDFLAGS =
+CFLAGS = -pipe -std=c++1z -O0 -g -march=native
+LDFLAGS = 
     
-ifdef DEBUG
-    CFLAGS += -O0 -g
-endif
-
-ifdef RELEASE
-    CFLAGS += -O3 -march=native
-    LDFLAGS += -flto
-endif
-
 : src/main.cpp |> g++ -c %f -o %o $(CFLAGS) |> obj/%B.o
 : obj/*.o |> g++ %f -o %o $(LDFLAGS) |> euler
 

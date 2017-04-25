@@ -18,6 +18,8 @@ string (*solutions[PROBLEMS])();
 #include "8.hpp"
 #include "9.hpp"
 #include "10.hpp"
+#include "54.hpp"
+#include "114.hpp"
 #include "129.hpp"
 #include "131.hpp"
 
@@ -32,6 +34,8 @@ void initSolutions() {
   solutions[7] = euler8;
   solutions[8] = euler9;
   solutions[9] = euler10;
+  solutions[53] = euler54;
+  solutions[113] = euler114;
   solutions[128] = euler129;
   solutions[130] = euler131;
 }
