@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 #include <gmpxx.h>
 using namespace std;
 

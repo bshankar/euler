@@ -1,25 +1,24 @@
 #include "../lib/euler.hpp"
 
+MEMOIZATOR(f, long, int, int);
 
-ul f(int n, int m) {
-  // filling a row of size n
-  // with tiles of min length m
-  if (n <= 0)
-    return 0;
-  if (n < m)
-    return 1;
-  if (n == m)
-    return 2;
 
-  ul ans = f(n, m + 1);
-  for (int i = 0; i < n - m + 1; ++i) {
-    ans += f(i-1, m);
-    ans += f(n - m, m);
+long _f(int m, int n) {
+
+  long solns = 1;
+
+  if (n > m) return solns;
+
+  for (int start = 0; start <= m-n; start++) {
+    for (int rowlen = n; rowlen <= m-start; rowlen++) {
+      solns += f(m - start - rowlen-1, n);
+    }
   }
-  return ans;
+
+  return solns;
 }
 
 
 string euler114() {
-  return to_string(f(7, 3));
+  return to_string(f(50, 3));
 }

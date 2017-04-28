@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 typedef short s;
 typedef unsigned short us;

@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 #include <iostream>
 #include <vector>
 using namespace std;

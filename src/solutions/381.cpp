@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 
 #define N 100000000

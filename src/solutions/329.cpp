@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 #include <gmpxx.h>
 #include <algorithm>
 typedef mpq_class fr;

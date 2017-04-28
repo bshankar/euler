@@ -1,5 +1,5 @@
-#include "../lib/euler.h"
-#include "vector_utils.h"
+#include "../lib/euler.hpp"
+#include "vector_utils.hpp"
 using namespace std;
 
 int main() {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 
 int main() {

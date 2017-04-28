@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 #include <vector>
 #include <string>
 using namespace std;

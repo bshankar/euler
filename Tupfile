@@ -1,7 +1,4 @@
 CFLAGS = -pipe -std=c++1z -O0 -g -march=native
 LDFLAGS = 
     
-: src/main.cpp |> g++ -c %f -o %o $(CFLAGS) |> obj/%B.o
-: obj/*.o |> g++ %f -o %o $(LDFLAGS) |> euler
-
-# vim: set filetype=dosini:
+: src/solutions/*.cpp |> g++ %f -o %o $(CFLAGS) |> bin/%B

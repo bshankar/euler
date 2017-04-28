@@ -11,6 +11,7 @@
 #include "colors.hpp"
 #include "time.hpp"
 #include "file.hpp"
+#include "memoize.hpp"
 
 #include <iostream>
 #include <fstream>

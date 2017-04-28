@@ -1,5 +1,5 @@
-#include "../lib/euler.h"
-#include "palindrome.h"
+#include "../lib/euler.hpp"
+#include "palindrome.hpp"
 #include <map>
 using namespace std;
 

@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <numeric>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 typedef unsigned long ul;
 

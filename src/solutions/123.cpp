@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 const ul N = 300000; // guess
 const ul LB = 10000000000;

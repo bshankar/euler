@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 # define N 100000000
 
 int main(int argc, char *argv[]) {

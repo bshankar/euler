@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 typedef unsigned long ul; 
 using namespace std;

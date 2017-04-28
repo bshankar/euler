@@ -1,5 +1,5 @@
-#include "bitboard.h"
-#include "../lib/euler.h"
+#include "bitboard.hpp"
+#include "../lib/euler.hpp"
 #include <vector>
 #include <cinttypes>
 using namespace std;

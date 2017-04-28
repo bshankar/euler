@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 
 #define N 51// len of the row

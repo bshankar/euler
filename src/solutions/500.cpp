@@ -1,4 +1,4 @@
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 #include <iostream>
 
 #define INF 18446744073709551615

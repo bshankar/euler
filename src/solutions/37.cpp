@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 
 bool isRtp(int N, vector<bool>& v) {

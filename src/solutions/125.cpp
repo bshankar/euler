@@ -1,4 +1,4 @@
-#include "palindrome.h"
+#include "palindrome.hpp"
 #include <cmath>
 #include <set>
 

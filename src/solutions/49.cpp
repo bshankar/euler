@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 using namespace std;
 
 int main() {

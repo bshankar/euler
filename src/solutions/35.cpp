@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "../lib/euler.h"
+#include "../lib/euler.hpp"
 
 typedef short s;
 typedef unsigned short us;

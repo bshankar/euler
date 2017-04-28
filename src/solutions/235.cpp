@@ -1,4 +1,4 @@
-#include "approx.h"
+#include "approx.hpp"
 using namespace std;
 typedef double ld;
 
