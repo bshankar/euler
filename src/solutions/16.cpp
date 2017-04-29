@@ -2,12 +2,11 @@
 
 
 int main() {
-  mpz_class a(1);
-  for (int i=0; i<1000; i++) 
-    a *= 2;
+  mpz_class base(2), result;
+  mpz_pow_ui(result.get_mpz_t(), base.get_mpz_t(), 1000);
 
   int ans = 0;
-  for (char ch: a.get_str())
+  for (char ch: result.get_str())
     ans += ch - '0';
 
   cout << "Euler 16: " << ans << endl;
