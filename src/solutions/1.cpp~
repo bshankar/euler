@@ -1,5 +1,0 @@
-#include "../lib/euler.h"
-
-string euler1() {
-  return 
-}

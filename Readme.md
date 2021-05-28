@@ -1,3 +1,3 @@
 # Introduction
 
-My C++ solutions to project euler problems.
+My Racket solutions to project euler problems.
