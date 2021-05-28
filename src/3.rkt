@@ -1,7 +1,10 @@
 #lang racket
 
-(define (div-to-death n p)
-  (if (= 0 (remainder n p)) (div-to-death (/ n p) p) n))
+(define (remove-factors n k)
+  (if (= 0 (remainder n k)) (remove-factors (/ n k) k) n))
 
-(let loop ([n 600851475143] [p 3])
-  (if (>= p n) p (loop (div-to-death n p) (+ p 2))))
+(define (largest-prime-factor n)
+  (let loop ([n n] [k 3])
+    (if (>= k n) k (loop (remove-factors n k) (+ k 2)))))
+
+(time (largest-prime-factor 600851475143))

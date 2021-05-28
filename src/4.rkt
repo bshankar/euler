@@ -1,9 +1,9 @@
 #lang racket
+(require "lib/misc.rkt")
 
-(define (palindrome? n)
-  (let ([nl (string->list (number->string n))])
-    (equal? nl (reverse nl))))
+(define (max-palindrome-product low high)
+  (apply max (filter (compose palindrome? number->string)
+              (map (λ(c) (apply * c))
+                 (combinations (range low high) 2)))))
 
-(apply max (filter palindrome?
-            (map (λ (c) (apply * c))
-               (combinations (range 101 1000) 2))))
+(time (max-palindrome-product 101 1000))

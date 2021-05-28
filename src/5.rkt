@@ -1,3 +1,10 @@
 #lang racket
+(require "lib/number-theory.rkt")
 
-(* 16 9 5 7 11 13 17 19)
+(define (highest-pow-less-than n b)
+  (inexact->exact (expt b (floor (log n b)))))
+
+(define (smallest-div-by-1-n n)
+  (apply * (map (λ(b) (highest-pow-less-than n b)) (sieve n))))
+
+(time (smallest-div-by-1-n 20))

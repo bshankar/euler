@@ -1,4 +1,4 @@
 #lang racket
 (require "lib/number-theory.rkt")
 
-(list-ref (sieve 150000) 10000)
+(time (list-ref (sieve 120000) 10000))

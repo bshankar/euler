@@ -10,5 +10,8 @@
 (define (prod input i w)
   (prod-of-digits (string->number (substring input i (+ i w)))))
 
-(let ([input input] [w 13])
-  (apply max (map (λ(i) (prod input i w)) (range (- (string-length input) w)))))
+(define (largest-product input w)
+  (let ([input input] [w w])
+    (apply max (map (λ(i) (prod input i w)) (range (- (string-length input) w))))))
+
+(time (largest-product input 13))
