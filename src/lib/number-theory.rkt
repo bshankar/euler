@@ -15,13 +15,12 @@
 (provide fibs-less-than)
 
 (define (sieve limit)
-  (define bv (make-bit-vector (+ limit 1) #f))
-  (bit-vector-set! bv 0 #t)
-  (bit-vector-set! bv 1 #t)
-  (for* ([i (in-range (add1 (sqrt limit)))] #:unless (bit-vector-ref bv i)
-         [j (in-range (sqr i) (bit-vector-length bv) i)])
+  (define lim (add1 (quotient (integer-sqrt limit) 2)))
+  (define bv (make-bit-vector (quotient (- limit 3) 2) #f))
+  (for* ([i (in-range lim)] #:unless (bit-vector-ref bv i)
+         [j (in-range @${2*i*i + 6*i + 3} (bit-vector-length bv) @${2*i + 3})])
     (bit-vector-set! bv j #t))
-  (for/list ([i (bit-vector-length bv)] #:unless (bit-vector-ref bv i)) i))
+  (cons 2 (for/list ([i (bit-vector-length bv)] #:unless (bit-vector-ref bv i)) @${2*i + 3})))
 
 (provide sieve)
 
