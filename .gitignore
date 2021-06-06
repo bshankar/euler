@@ -5,3 +5,4 @@ bin/*
 build*
 .tup
 *.*~
+/src/lib/compiled/

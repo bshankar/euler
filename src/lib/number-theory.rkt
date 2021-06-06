@@ -6,21 +6,13 @@
 
 (provide ap-sum)
 
-(define (fibs-less-than n)
-  (let loop ([acc '(0)] [a 0] [b 1])
-    (if (>= a n)
-        acc
-        (loop (append acc (list b)) b (+ a b)))))
-
-(provide fibs-less-than)
-
 (define (sieve limit)
   (define lim (add1 (quotient (integer-sqrt limit) 2)))
   (define bv (make-bit-vector (quotient (- limit 3) 2) #f))
   (for* ([i (in-range lim)] #:unless (bit-vector-ref bv i)
          [j (in-range @${2*i*i + 6*i + 3} (bit-vector-length bv) @${2*i + 3})])
     (bit-vector-set! bv j #t))
-  (cons 2 (for/list ([i (bit-vector-length bv)] #:unless (bit-vector-ref bv i)) @${2*i + 3})))
+  (cons 2 (for/vector ([i (bit-vector-length bv)] #:unless (bit-vector-ref bv i)) @${2*i + 3})))
 
 (provide sieve)
 
@@ -72,3 +64,26 @@
       [else c])))
 
 (provide bisect)
+
+(define (to-base n b [acc 0] [pow 0])
+  (if (= n 0)
+      acc
+      (to-base (quotient n b)
+               b
+               (+ acc (* (expt 10 pow) (remainder n b))) (add1 pow))))
+
+(provide to-base)
+
+(define (number->digits n [ds '()])
+  (if (= n 0)
+      (reverse ds)
+      (number->digits (quotient n 10)
+                      (append ds (list (remainder n 10))))))
+
+(provide number->digits)
+
+(define (digits->number nl)
+  (foldr (λ (e a) (+ e (* 10 a))) 0 (reverse nl)))
+
+(provide digits->number)
+

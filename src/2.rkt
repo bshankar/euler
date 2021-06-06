@@ -1,7 +1,7 @@
-#lang racket
-(require math/base "lib/number-theory.rkt")
+#lang lazy
+(require "lib/lazy-sequences.rkt")
 
 (define (sum-even-fibs limit)
-  (sum (filter (λ(x) (even? x)) (fibs-less-than limit))))
+  (apply + (filter even? (takef (λ (i) (< i limit)) Fib))))
 
-(time (sum-even-fibs 4000000))
+(time (!!(sum-even-fibs 4000000)))
