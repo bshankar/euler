@@ -1,7 +1,6 @@
 #lang racket
 
-(define input
-  (apply string-append (file->lines "../data/8.txt")))
+(define input (apply string-append (file->lines "../data/8.txt")))
 
 (define (prod-of-digits n)
   (let loop ([n n] [p 1])

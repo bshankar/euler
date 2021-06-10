@@ -1,5 +1,5 @@
-#lang racket
-(require memoize)
+#lang racket/base
+(require racket/list memoize)
 
 (define/memo (collatz n)
     (cond
@@ -8,7 +8,6 @@
       [else (add1 (collatz (add1 (* 3 n))))]))
 
 (define (longest-collatz-seed limit)
-  (let* ([chain-lengths (build-vector limit (λ(i) (+ 2 i)))])
-    (+ 2 (vector-argmax collatz chain-lengths))))
+  (argmax collatz (range 2 limit)))
 
 (time (longest-collatz-seed 1000000))
