@@ -28,3 +28,21 @@
   acc)
 
 (provide permutations-with-repeating)
+
+(define (descending-suffix-at l [i 0])
+  (if (equal? l (sort l >))
+      i
+      (descending-suffix-at (rest l) (add1 i))))
+
+(define (next-permutation l)
+  (let ([i (descending-suffix-at l)])
+    (if (zero? i)
+        #f
+        (let-values ([(xs ys) (split-at l i)])
+          (let* ([yss (sort ys <)] [ysf (first yss)] [xl (last xs)])
+            (append (take xs (sub1 (length xs)))
+                    (list ysf)
+                    (list xl)
+                    (drop yss 1)))))))
+
+(provide next-permutation)
