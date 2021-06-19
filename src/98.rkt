@@ -16,7 +16,7 @@
   (define digit-map (for/hash ([w ws] [m mapping]) (values w m)))
   (define number-groups (map (λ (word) (word->number? word digit-map)) words))
   (and (not (member #f number-groups))
-       (not (member #f (map perfect-square number-groups)))
+       (andmap perfect-square number-groups)
        number-groups))
 
 (define (words->squares? words)
