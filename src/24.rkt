@@ -1,21 +1,18 @@
 #lang racket
 (require math/number-theory)
 
-(define (nth-lexicographic-pandigital n [len 10])
-  (let loop ([n n] [len (sub1 len)] [res '()]
-                   [unseen (range len)]
-                   [count (factorial (sub1 len))])
-
+(define (nth-permutation n len)
+  (let loop ([n n] [len (sub1 len)] [res '()] [ds (range len)])
+    (define count (factorial len))
     (define q (quotient n count))
     (define f (if (zero? (remainder n count)) (sub1 q) q))
-    (define d (list-ref unseen f))
+    (define d (list-ref ds f))
 
     (if (= len 0)
-        (append res unseen)
+        (append res ds)
         (loop (- n (* count f))
               (sub1 len)
               (append res (list d))
-              (remove d unseen)
-              (factorial (sub1 len))))))
+              (remove d ds)))))
 
-(time (nth-lexicographic-pandigital 1000000 10))
+(time (nth-permutation 1000000 10))
