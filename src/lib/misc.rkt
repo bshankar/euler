@@ -5,12 +5,10 @@
     (if (>= i j) #t
         (if (equal? (string-ref s i) (string-ref s j))
             (loop (add1 i) (sub1 j)) #f))))
-
 (provide palindrome?)
 
 (define (item-frequencies l)
   (for/hash ([i (list->set l)]) (values i (count (λ(e) (equal? e i)) l))))
-
 (provide item-frequencies)
 
 (define (choose-item cc k)
@@ -26,7 +24,6 @@
         (for/list ([k (hash-keys cc)])
           (loop (choose-item cc k) (cons k current)))))
   acc)
-
 (provide permutations-with-repeating)
 
 (define (descending-suffix-at l [i 0])

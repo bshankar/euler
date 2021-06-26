@@ -8,3 +8,4 @@
   (apply * (map (λ(b) (highest-pow-less-than n b)) (sieve n))))
 
 (time (smallest-div-by-1-n 20))
+
